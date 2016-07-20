@@ -1,0 +1,22 @@
+class ['a,'b] cache ip dict =
+  dist_object(self)
+  reaction react_get at ip: 'advisable 
+    state(d) & get(k,r) = dict#lookup(d,k,r) & state(d)
+  or       react_put at ip: 'advisable 
+    state(d) & put(k,v) = dict#update(d,k,v,getdict) 
+  or   react_getdict at ip: 'opaque 
+    getdict(d) = state(d)
+  private channel state
+  public channel 
+  (get : {string * 'a} Join.chan), 
+  (put : {string * int} Join.chan), 
+  (getdict : {(string,int) Dict.t} Join.chan)
+  {initializer spawn dict#create(self#getdict) }
+end
+
+class continuation ip = 
+  dist_object(self)
+  reaction react_k at ip: 'opaque k(n) = 
+  { print_int(n); print_string(" is read"); print_string("\n"); flush stdout ; } 0
+  public channel (k : {int} Join.chan)
+end

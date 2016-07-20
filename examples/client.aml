@@ -1,0 +1,17 @@
+{
+let () =
+ let ip = (int_of_string Sys.argv.(1)) in
+ let dict = new Dict.dict ip in
+ let z = new ACache.cache ip dict in
+ (* let k = new ACache.continuation ip in *)
+ Thread.delay 1.0 ;
+ for arg = 1 to 10 do
+   print_int(arg); print_string(" is stored");
+   print_string("\n"); flush stdout;
+   spawn z#put("key",arg);
+   Thread.delay 1.0;
+   (* spawn z#get("key",k#k); *)
+   (* Thread.delay 1.0; *)
+ done;
+ while true do () done
+}

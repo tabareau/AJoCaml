@@ -1,0 +1,15 @@
+aspect my_asp ip cont =
+    pc     : (Contains _ . ["c" (_)]) &&& (CausedBy (Contains _ . ["a" (n)]))
+    advice : proceed() & cont#k(n)
+end
+
+{
+let () =
+  let ip = (int_of_string Sys.argv.(1)) in
+  let cont = new ACache.continuation ip in 
+  let _ = my_asp ip cont in
+  print_string("Aspect1 connected\n"); flush stdout;
+  while true do
+    Thread.delay 1.0
+  done
+}

@@ -1,0 +1,26 @@
+class foo ip =
+  dist_object(self)
+  reaction react_1 at ip: 'advisable 
+    a(n) & b() = c({n+1})
+  or       react_2 at ip: 'advisable 
+    a(n) & d() = e({n+1})
+  or       react_3 at ip: 'advisable 
+    c(n) & e(m) = 
+        {print_string("reaction finished: ");print_int (n+m); print_string("\n"); flush stdout; } 0
+  public channel b ,d,
+  (a : {int} Join.chan), 
+  (c : {int} Join.chan), 
+  (e : {int} Join.chan)
+end
+
+{
+let () =
+ let ip = (int_of_string Sys.argv.(1)) in
+ let z = new foo ip in
+ spawn z#a(3);
+ spawn z#d();
+ Thread.delay 1.0 ;
+ spawn z#a(5);
+ spawn z#b();
+ while true do () done
+}

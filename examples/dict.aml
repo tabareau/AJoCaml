@@ -1,0 +1,10 @@
+{type ('a,'b) t  = ('a,'b) Hashtbl.t }
+
+class ['a,'b,'c] dict ip =
+  dist_object(self)
+  reaction react_create at ip: 'opaque create(ret) = ret({Hashtbl.create 1})
+        or react_update at ip: 'opaque update(d,k,v,ret) = {Hashtbl.add d k v;} ret(d) 
+        or react_lookup at ip: 'opaque lookup(d,k,ret) = ret({Hashtbl.find d k})
+  public channel (create : 'c Join.chan), (update : {('a, 'b) t * 'a * 'b * 'c} Join.chan), 
+	         (lookup : {('a, 'b) t * 'a * 'c} Join.chan)
+end

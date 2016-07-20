@@ -1,0 +1,27 @@
+class ['a] replication ip cache =
+  dist_object(self)
+  reaction react_rput at ip: 'opaque rput(k,v) = 
+          {print_string("Aspect1 has cached: "); print_int v;  print_string("\n"); flush stdout;} 
+	  cache#put(k,v)
+  public channel (rput : {string * 'a} Join.chan)
+end
+
+aspect my_asp ip repl cont =
+    pc     : (Contains x . ["put" (k,arg)]) &&& (Not (CausedBy (Contains _ . ["rput" (_,_)])))
+    advice : {let chan = (obj_to_chan "get" x) in } 
+             repl#rput(k,arg) & proceed() & chan(k,{cont#k})
+end
+
+{
+let () =
+  let ip = (int_of_string Sys.argv.(1)) in
+  let dict = new Dict.dict ip in
+  let buf = new ACache.cache ip dict in
+  let repl = new replication ip buf in
+  let k = new ACache.continuation ip in 
+  let _ = my_asp ip repl k in
+  print_string("Aspect1 connected\n"); flush stdout;
+  while true do
+    Thread.delay 1.0
+  done
+}
