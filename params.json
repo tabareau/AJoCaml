@@ -1,0 +1,6 @@
+{
+  "name": "Ajocaml",
+  "tagline": "Implementation of the aspect join calculus based on JoCaml ",
+  "body": "Aspect JoCaml is an implementation of the aspect join calculus described in \"Chemical Foundations of Distributed Aspects\" [1].\r\n\r\n### Downloading\r\n\r\nYou can download Aspect JoCaml at <https://github.com/tabareau/AJoCaml>. \r\nIt requires OCaml 4.02 and JoCaml 4.01.\r\n\r\n### Examples\r\n\r\nThe distribution comes with an example of buffer replication.\r\n### Authors and Contributors\r\nNicolas Tabareau and Éric Tanter\r\n\r\n### Bibliography\r\n\r\n[1] Chemical Foundations of Distributed Aspects Tabareau N., Tanter éric, submitted .\r\n\r\n### Support or Contact\r\nHaving trouble with Pages? Check out our [documentation](https://help.github.com/pages) or [contact support](https://github.com/contact) and we’ll help you sort it out.\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
